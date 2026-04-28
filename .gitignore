@@ -1,0 +1,7 @@
+#Compiler results.
+*.obj
+
+#Output
+*.elf
+*.cue
+*.bin
