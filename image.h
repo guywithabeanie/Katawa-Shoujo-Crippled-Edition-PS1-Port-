@@ -33,7 +33,5 @@ typedef struct Image {
 } Image;
 
 int Image_Load( Image* image, char* path, int imageVX, int imageVY, int clutVX, int clutVY );
-//ONLY WORKS WITH INDEXED IMAGES.
-int Image_SetAlpha( Image* image, int alpha );
 
 #endif
