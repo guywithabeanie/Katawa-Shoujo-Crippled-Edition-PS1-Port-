@@ -1,0 +1,15 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Run PCSX-Redux",
+            "type": "shell",
+            "command": "./pcsx-redux.AppImage",
+            "args": [
+                "-run",
+                "katawa.cue"
+            ],
+            "problemMatcher": []
+        }
+    ],
+}
