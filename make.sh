@@ -36,8 +36,10 @@ LIBS="
 -Wl,--end-group
 "
 
+[ -d "bin" ] || mkdir bin
+
 # --- Compile ---
-$CC $CFLAGS -c ./nugget/common/crt0/crt0.s -o bin/crt0.o
+$CC $CFLAGS -c ./nugget/common/crt0/crt0.s -o bin/crt0.obj
 
 CFILES=(*.c)
 OBJFILES=()
@@ -48,7 +50,7 @@ for i in "${CFILES[@]}"; do
 done
 
 # --- Link ---
-$CC bin/crt0.o "${OBJFILES[@]}" -o "bin/$OUTPUT.elf" \
+$CC bin/crt0.obj "${OBJFILES[@]}" -o "bin/$OUTPUT.elf" \
     $LDFLAGS $LIBS
 
 # --- Convert to PS-X EXE ---
