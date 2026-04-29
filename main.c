@@ -1,5 +1,4 @@
 #include "renderer.h"
-#include "image.h"
 #include "scene.h"
 
 #include <libgte.h>
@@ -16,7 +15,7 @@ int main() {
     SceneInfo sceneInfo = {
         .actorCount = 0,
         .background = SnowyWoods,
-        .specialEffect = SnowFall
+        .effect = SnowFall
     };
 
     Scene scene;

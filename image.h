@@ -6,6 +6,7 @@
 #include <libetc.h>
 #include <libgpu.h>
 
+#include "renderer.h"
 #include "file.h"
 
 #define BITMODE4  0
@@ -19,10 +20,6 @@
 #define Is4Bit( n ) ( (n)->tim.mode == 0x08 )
 #define Is8Bit( n ) ( (n)->tim.mode == 0x09 )
 
-#define GetR( n ) ( (n) & 0x1F )
-#define GetG( n ) ( ( (n) >> 5 ) * 0x1F )
-#define GetB( n ) ( ( (n) >> 10 ) * 0x1F )
-
 typedef struct Image {
     int alpha;
     TIM_IMAGE tim;
@@ -33,5 +30,7 @@ typedef struct Image {
 } Image;
 
 int Image_Load( Image* image, char* path, int imageVX, int imageVY, int clutVX, int clutVY );
+
+int Renderer_DrawImage( Renderer* renderer, Image* image, int x, int y, Color tint, TransparencyMode transparencyMode );
 
 #endif

@@ -1,7 +1,5 @@
-#include "specialEffects.h"
+#include "effects.h"
 
-//Make snow texture normal lookin.
-//Make a git repo.
 int SnowSystem_Init( SnowSystem* snowSystem ) {
     for( int i = 0; i < SNOW_COUNT; i++ ) {
         SnowFlake* snowFlake = &snowSystem->snow[i];
@@ -29,6 +27,6 @@ int SnowSystem_Update( SnowSystem* snowSystem ) {
 int Renderer_DrawSnow( Renderer* renderer, Image* snowSprite, SnowSystem* snowSystem ) {
     for( int i = 0; i < SNOW_COUNT; i++ ) {
         SnowFlake* snowFlake = &snowSystem->snow[i];
-        Renderer_DrawImage( renderer, snowSprite, Ftoi( snowFlake->x ), Ftoi( snowFlake->y ) );
+        Renderer_DrawImage( renderer, snowSprite, Ftoi( snowFlake->x ), Ftoi( snowFlake->y ), DEFAULT, Substractive );
     }
 }

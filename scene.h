@@ -2,44 +2,31 @@
 #define SCENE_H
 
 #include "image.h"
-#include "specialEffects.h"
+#include "effects.h"
 #include "texLut.h"
+#include "actor.h"
+#include "renderer.h"
 
 #define MAX_ACTORS 4
 
-typedef struct ActorInfo {
-    //Actors don't need to move through the Y axis all that much.
-    int x;
-    int character;
-    int pose;
-} ActorInfo;
-
-typedef struct Actor {
-    //Use two images for when switching between two states.
-    int activeBuffer;
-
-    ActorInfo actorInfo;
-    Image texture[2];
-} Actor;
+typedef struct Image Image;
+typedef struct Actor Actor;
+typedef struct ActorInfo ActorInfo;
 
 typedef struct SceneInfo {
     int background;
     int actorCount;
-    int specialEffect;
+    Effect effect;
 } SceneInfo;
 
 typedef struct Scene {
-    void* specialEffectProperties;
+    void* effectProperties;
     SceneInfo sceneInfo;
     Actor actors[MAX_ACTORS];
 
     Image background;
     Image specialEffect;
 } Scene;
-
-int Actor_Init( Actor* actor, ActorInfo* actorInfo );
-
-int Actor_Draw( Actor* actor );
 
 int Scene_Init( Scene* scene, SceneInfo* sceneInfo, ActorInfo* actorInfo );
 
@@ -48,5 +35,7 @@ int Scene_AddActor( Scene* scene, ActorInfo* actorInfo );
 int Scene_RemoveActor( Scene* scene, int character );
 
 int Scene_Update( Scene* scene );
+
+int Renderer_DrawScene( Renderer* renderer, Scene* scene );
 
 #endif

@@ -5,10 +5,10 @@
         <directory_tree>
             <file name="SCES_313.37" type="data" source="SCES_313.37" />
             <file name="system.cnf" type="data" source="system.cnf" />
-            <file name="BAL.TXT" type="data" source="BAL.TXT" />
             <dir name="GFX" type="data" source="GFX">
                 <dir name="VFX" type="data" source="GFX/VFX">
                     <file name="SNOW.TIM" type="data" source="GFX/VFX/SNOW.TIM" />
+                    <file name="te.png" type="data" source="GFX/VFX/te.png" />
                     <file name="out.png" type="data" source="GFX/VFX/out.png" />
                 </dir>
                 <dir name="UI" type="data" source="GFX/UI">
@@ -19,7 +19,6 @@
                     <dir name="NORMAL" type="data" source="GFX/RIN/NORMAL">
                         <file name="RINSUP.TIM" type="data" source="GFX/RIN/NORMAL/RINSUP.TIM" />
                         <file name="RINAMU.TIM" type="data" source="GFX/RIN/NORMAL/RINAMU.TIM" />
-                        <file name="sort.py" type="data" source="GFX/RIN/NORMAL/sort.py" />
                     </dir>
                     <dir name="SCLOSE" type="data" source="GFX/RIN/SCLOSE" />
                     <dir name="CLOSE" type="data" source="GFX/RIN/CLOSE">

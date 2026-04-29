@@ -1,3 +1,6 @@
+#ifndef TEXLUT_H
+#define TEXLUT_H
+
 #define Rin 0
 #define Rin_Amused 0
 #define Rin_Surprised 1
@@ -12,3 +15,5 @@ static char* RinPoses[] = {
 static char* Backgrounds[] = {
     "\\GFX\\BG\\SNOWY.TIM;1"
 };
+
+#endif

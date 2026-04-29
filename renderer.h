@@ -7,18 +7,16 @@
 #include <libgpu.h>
 #include <string.h>
 
-#include "image.h"
-#include "scene.h"
 #include "fixed.h"
 
 #define MARGINX 0                // margins for text display
 #define MARGINY 32
-#define SCREENXRES 320          // Screen width
-#define SCREENYRES 240          // Screen height
 #define FONTSIZE 8 * 7           // Text Field Height
 
 #define SCREEN_WIDTH 320
 #define SCREEN_HEIGHT 480
+
+#define DEFAULT (Color){ 128, 128, 128 }
 
 #define OT_SIZE 128
 #define SPRTT_SIZE 128
@@ -50,17 +48,20 @@ typedef struct Color {
     u_char red, green, blue;
 } Color;
 
+//The transparency modes that the PS1 supports.
+typedef enum TransparencyMode {
+    Opaque = 0,
+    Translucent,                //50% Background  + 50% Foreground
+    Additive,                   //100% Background + 100% Foreground
+    Substractive,               //100% Background - 100% Foreground
+    Additive25                  //100% Background + 25% Foreground
+} TransparencyMode;
+
 Sprite* SpriteTable_Fetch( Renderer* renderer );
 
 void SpriteTable_Refresh( Renderer* renderer );
 
 void Renderer_Init( Renderer* renderer, Color backgroundColor );
-
-int Renderer_DrawImage( Renderer* renderer, Image* image, int x, int y );
-
-int Renderer_DrawActor( Renderer* renderer, Actor* actor );
-
-int Renderer_DrawScene( Renderer* renderer, Scene* scene );
 
 void Renderer_Refresh( Renderer* renderer );
 

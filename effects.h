@@ -1,22 +1,27 @@
-#ifndef SPECIAL_EFFECTS_H
-#define SPECIAL_EFFECTS_H
+#ifndef EFFECTS_H
+#define EFFECTS_H
 
 #include <stdlib.h>
 
 #include "renderer.h"
-#include "scene.h"
+#include "image.h"
 #include "fixed.h"
 
+//Effects will always get drawn in this VRAM position.
 #define FX_X 960
 #define FX_Y 256
 #define FX_CLUTX 0
 #define FX_CLUTY 511
 
-#define SnowFall 0
 #define SNOW_PATH "\\GFX\\VFX\\SNOW.TIM;1"
 #define SNOW_COUNT 30
 
+typedef struct Image Image;
 typedef struct Renderer Renderer;
+
+typedef enum Effect {
+    SnowFall = 0
+} Effect;
 
 typedef struct SnowFlake {
     fixed x, y;
