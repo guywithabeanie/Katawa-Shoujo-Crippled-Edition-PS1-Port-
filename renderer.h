@@ -19,20 +19,17 @@
 #define DEFAULT (Color){ 128, 128, 128 }
 
 #define OT_SIZE 128
-#define SPRTT_SIZE 128
+#define TEXTABLE_SIZE 128
 
 #define SyncToRefresh(n) ( Fixed_MultIntF(n, syncReciprocal) )
-
-typedef struct Actor Actor;
-typedef struct Scene Scene;
 
 //The reciprocal of the refresh rate (60Hz for NTSC, 50Hz for PAL).
 extern fixed syncReciprocal;
 
-typedef struct Sprite {
+typedef struct Texture {
     SPRT sprt;
     DR_TPAGE tPage;
-} Sprite;
+} Texture;
 
 typedef struct Renderer {
     int spriteTableIndex;
@@ -41,7 +38,7 @@ typedef struct Renderer {
     DRAWENV drawEnv;
 
     u_long orderingTable[OT_SIZE];
-    Sprite spriteTable[SPRTT_SIZE];
+    Texture textureTable[TEXTABLE_SIZE];
 } Renderer;
 
 typedef struct Color {
@@ -57,9 +54,9 @@ typedef enum TransparencyMode {
     Additive25                  //100% Background + 25% Foreground
 } TransparencyMode;
 
-Sprite* SpriteTable_Fetch( Renderer* renderer );
+Texture* TextureTable_Fetch( Renderer* renderer );
 
-void SpriteTable_Refresh( Renderer* renderer );
+void TextureTable_Refresh( Renderer* renderer );
 
 void Renderer_Init( Renderer* renderer, Color backgroundColor );
 

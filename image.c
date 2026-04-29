@@ -103,26 +103,26 @@ int Renderer_DrawImage( Renderer* renderer, Image* image, int x, int y, Color ti
         if( sliceHeight > remainingHeight ) sliceHeight = remainingHeight;
         
         for( int i = 0; i < tpageCountX; i++ ) {
-            Sprite* spriteObj = SpriteTable_Fetch( renderer );
-            if( spriteObj == NULL ) return -1;
+            Texture* TextureObj = TextureTable_Fetch( renderer );
+            if( TextureObj == NULL ) return -1;
 
             int horizontalOffset = currentVramX & ( wordPerTPage - 1 );
             int sliceWidth = wordPerTPage - horizontalOffset;
             if( sliceWidth > remainingWidth ) sliceWidth = remainingWidth;
 
-            SPRT* sprite = &spriteObj->sprt;
-            DR_TPAGE* TPage = &spriteObj->tPage;
+            SPRT* Texture = &TextureObj->sprt;
+            DR_TPAGE* TPage = &TextureObj->tPage;
 
-            SetSprt( sprite );
-            setXY0( sprite, drawX, drawY );
-            setWH( sprite, sliceWidth * pixelPerWord, sliceHeight );
-            setUV0( sprite, ( currentVramX & ( wordPerTPage - 1 ) ) * pixelPerWord, currentVramY & 0xFF );
-            setRGB0( sprite, tint.red, tint.green, tint.blue );
-            if( transparencyMode != Opaque )    setSemiTrans( sprite, 1 );
+            SetSprt( Texture );
+            setXY0( Texture, drawX, drawY );
+            setWH( Texture, sliceWidth * pixelPerWord, sliceHeight );
+            setUV0( Texture, ( currentVramX & ( wordPerTPage - 1 ) ) * pixelPerWord, currentVramY & 0xFF );
+            setRGB0( Texture, tint.red, tint.green, tint.blue );
+            if( transparencyMode != Opaque )    setSemiTrans( Texture, 1 );
 
             //Retrieve the CLUTs if 4-bit / 8-bit.
             if( IsIndexed( image ) ) {
-                setClut( sprite, image->tim.crect->x, tim->crect->y );
+                setClut( Texture, image->tim.crect->x, tim->crect->y );
             }
             
             int TPageX = ( currentVramX >> bitsPerTPage ) << bitsPerTPage;
@@ -130,7 +130,7 @@ int Renderer_DrawImage( Renderer* renderer, Image* image, int x, int y, Color ti
 
             setDrawTPage( TPage, 0, 1, getTPage( imageDepth, transparencyMode, TPageX, TpageY ) );
 
-            addPrim( renderer->orderingTable, sprite );
+            addPrim( renderer->orderingTable, Texture );
             addPrim( renderer->orderingTable, TPage );
 
             currentVramX += sliceWidth;

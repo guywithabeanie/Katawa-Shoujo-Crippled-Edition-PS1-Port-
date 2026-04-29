@@ -1,7 +1,6 @@
 #ifndef SCENE_H
 #define SCENE_H
 
-#include "image.h"
 #include "effects.h"
 #include "texLut.h"
 #include "actor.h"
@@ -9,12 +8,8 @@
 
 #define MAX_ACTORS 4
 
-typedef struct Image Image;
-typedef struct Actor Actor;
-typedef struct ActorInfo ActorInfo;
-
 typedef struct SceneInfo {
-    int background;
+    Background background;
     int actorCount;
     Effect effect;
 } SceneInfo;
@@ -25,7 +20,7 @@ typedef struct Scene {
     Actor actors[MAX_ACTORS];
 
     Image background;
-    Image specialEffect;
+    Image effectTexture;
 } Scene;
 
 int Scene_Init( Scene* scene, SceneInfo* sceneInfo, ActorInfo* actorInfo );

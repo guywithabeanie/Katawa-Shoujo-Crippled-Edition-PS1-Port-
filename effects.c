@@ -1,6 +1,8 @@
 #include "effects.h"
 
-int SnowSystem_Init( SnowSystem* snowSystem ) {
+int SnowSystem_Init( SnowSystem* snowSystem, Image* snowSprite ) {
+    snowSystem->snowSprite = snowSprite;
+
     for( int i = 0; i < SNOW_COUNT; i++ ) {
         SnowFlake* snowFlake = &snowSystem->snow[i];
 
@@ -19,14 +21,19 @@ int SnowSystem_Update( SnowSystem* snowSystem ) {
         snowFlake->x += SyncToRefresh( snowFlake->velocityX );
         snowFlake->y += SyncToRefresh( snowFlake->velocityY );
 
-        if( snowFlake->x > itoF( SCREEN_WIDTH ) ) snowFlake->x = 0;
-        if( snowFlake->y > itoF( SCREEN_HEIGHT ) ) snowFlake->y = 0;
+        //Wrap around the screen.
+        if( snowFlake->x > itoF( SCREEN_WIDTH ) ) snowFlake->x = itoF( -snowSystem->snowSprite->prect.w );
+        if( snowFlake->y > itoF( SCREEN_HEIGHT ) ) snowFlake->y = itoF( -snowSystem->snowSprite->prect.h );
     }
 }
 
-int Renderer_DrawSnow( Renderer* renderer, Image* snowSprite, SnowSystem* snowSystem ) {
+int Renderer_DrawSnow( Renderer* renderer, SnowSystem* snowSystem ) {
     for( int i = 0; i < SNOW_COUNT; i++ ) {
         SnowFlake* snowFlake = &snowSystem->snow[i];
-        Renderer_DrawImage( renderer, snowSprite, Ftoi( snowFlake->x ), Ftoi( snowFlake->y ), DEFAULT, Substractive );
+        Renderer_DrawImage ( 
+            renderer, snowSystem->snowSprite, 
+            Ftoi( snowFlake->x ), Ftoi( snowFlake->y ), 
+            DEFAULT, Substractive 
+        );
     }
 }

@@ -13,15 +13,7 @@
 #define FX_CLUTX 0
 #define FX_CLUTY 511
 
-#define SNOW_PATH "\\GFX\\VFX\\SNOW.TIM;1"
 #define SNOW_COUNT 30
-
-typedef struct Image Image;
-typedef struct Renderer Renderer;
-
-typedef enum Effect {
-    SnowFall = 0
-} Effect;
 
 typedef struct SnowFlake {
     fixed x, y;
@@ -29,11 +21,12 @@ typedef struct SnowFlake {
 } SnowFlake;
 
 typedef struct SnowSystem {
+    Image* snowSprite;
     SnowFlake snow[SNOW_COUNT];
 } SnowSystem;
 
-int SnowSystem_Init( SnowSystem* snowSystem );
+int SnowSystem_Init( SnowSystem* snowSystem, Image* snowSprite );
 int SnowSystem_Update( SnowSystem* snowSystem );
-int Renderer_DrawSnow( Renderer* renderer, Image* snowSprite, SnowSystem* snowSystem );
+int Renderer_DrawSnow( Renderer* renderer, SnowSystem* snowSystem );
 
 #endif

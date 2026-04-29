@@ -8,8 +8,6 @@
             <dir name="GFX" type="data" source="GFX">
                 <dir name="VFX" type="data" source="GFX/VFX">
                     <file name="SNOW.TIM" type="data" source="GFX/VFX/SNOW.TIM" />
-                    <file name="te.png" type="data" source="GFX/VFX/te.png" />
-                    <file name="out.png" type="data" source="GFX/VFX/out.png" />
                 </dir>
                 <dir name="UI" type="data" source="GFX/UI">
                     <file name="3.png" type="data" source="GFX/UI/3.png" />

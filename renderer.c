@@ -1,14 +1,14 @@
 #include "renderer.h"
 
-//1/60 and 1/50 in 20.12 fixed point representation.
+//1/60 or 1/50 in 20.12 fixed point representation.
 fixed syncReciprocal;
 
-Sprite* SpriteTable_Fetch( Renderer* renderer ) {
-    if( renderer->spriteTableIndex >= SPRTT_SIZE ) return NULL;
-    return &renderer->spriteTable[ renderer->spriteTableIndex++ ];
+Texture* TextureTable_Fetch( Renderer* renderer ) {
+    if( renderer->spriteTableIndex >= TEXTABLE_SIZE ) return NULL;
+    return &renderer->textureTable[ renderer->spriteTableIndex++ ];
 }
 
-void SpriteTable_Refresh( Renderer* renderer ) {
+void TextureTable_Refresh( Renderer* renderer ) {
     //No need to clean the original one, we'll just overwrite it.
     renderer->spriteTableIndex = 0;
 }
@@ -61,5 +61,5 @@ void Renderer_Refresh( Renderer* renderer ) {
     //Clear the ordering table.
     ClearOTagR( (u_long*) &renderer->orderingTable, OT_SIZE );
 
-    SpriteTable_Refresh( renderer );
+    TextureTable_Refresh( renderer );
 }

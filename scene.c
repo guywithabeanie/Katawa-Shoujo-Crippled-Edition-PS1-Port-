@@ -9,8 +9,8 @@ int Scene_Init( Scene* scene, SceneInfo* sceneInfo, ActorInfo* actorInfo ) {
     switch( sceneInfo->effect ) {
         case SnowFall:
             scene->effectProperties = malloc( sizeof( SnowSystem ) );
-            Image_Load( &scene->specialEffect, SNOW_PATH, FX_X, FX_Y, FX_CLUTX, FX_CLUTY );
-            SnowSystem_Init( scene->effectProperties );
+            Image_Load( &scene->effectTexture, Effects[ sceneInfo->effect ], FX_X, FX_Y, FX_CLUTX, FX_CLUTY );
+            SnowSystem_Init( scene->effectProperties, &scene->effectTexture );
             break;
         
         default:
@@ -41,7 +41,7 @@ int Scene_Update( Scene* scene ) {
 int Renderer_DrawScene( Renderer* renderer, Scene* scene ) {
     switch( scene->sceneInfo.effect ) {
         case SnowFall:
-            Renderer_DrawSnow( renderer, &scene->specialEffect, scene->effectProperties );
+            Renderer_DrawSnow( renderer, scene->effectProperties );
             break;
 
         default:

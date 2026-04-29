@@ -1,9 +1,9 @@
 #ifndef ACTOR_H
 #define ACTOR_H
 
+#include "renderer.h"
 #include "image.h"
 #include "texLut.h"
-#include "renderer.h"
 
 typedef struct ActorInfo {
     //Actors don't need to move through the Y axis all that much.

@@ -5,3 +5,7 @@
 *.elf
 *.cue
 *.bin
+
+#CDROM files
+*.xml
+*.37
