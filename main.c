@@ -10,6 +10,7 @@ int main() {
 
     static unsigned char heap[0xFFFFF];
     InitHeap( (unsigned long*) heap, sizeof(heap) );
+
     File_Init();
 
     SceneInfo sceneInfo = {

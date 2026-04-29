@@ -33,7 +33,7 @@ int Renderer_DrawSnow( Renderer* renderer, SnowSystem* snowSystem ) {
         Renderer_DrawImage ( 
             renderer, snowSystem->snowSprite, 
             Ftoi( snowFlake->x ), Ftoi( snowFlake->y ), 
-            DEFAULT, Substractive 
+            DEFAULT, Additive 
         );
     }
 }

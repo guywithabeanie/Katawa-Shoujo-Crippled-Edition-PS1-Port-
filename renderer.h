@@ -47,11 +47,11 @@ typedef struct Color {
 
 //The transparency modes that the PS1 supports.
 typedef enum TransparencyMode {
-    Opaque = 0,
-    Translucent,                //50% Background  + 50% Foreground
-    Additive,                   //100% Background + 100% Foreground
-    Substractive,               //100% Background - 100% Foreground
-    Additive25                  //100% Background + 25% Foreground
+    Average = 0,                    //50% Background  + 50% Foreground
+    Additive,                       //100% Background + 100% Foreground
+    Substractive,                   //100% Background - 100% Foreground
+    QuarterAdditive,                //100% Background + 25% Foreground
+    Opaque                          //extra
 } TransparencyMode;
 
 Texture* TextureTable_Fetch( Renderer* renderer );
