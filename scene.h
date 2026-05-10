@@ -31,6 +31,8 @@ int Scene_RemoveActor( Scene* scene, int character );
 
 int Scene_Update( Scene* scene );
 
+int Scene_Destroy( Scene* scene );
+
 int Renderer_DrawScene( Renderer* renderer, Scene* scene );
 
 #endif

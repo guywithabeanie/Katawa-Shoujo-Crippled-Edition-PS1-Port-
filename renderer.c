@@ -1,6 +1,5 @@
 #include "renderer.h"
 
-//1/60 or 1/50 in 20.12 fixed point representation.
 fixed syncReciprocal;
 
 Texture* TextureTable_Fetch( Renderer* renderer ) {
@@ -34,6 +33,7 @@ void Renderer_Init( Renderer* renderer, Color backgroundColor ) {
     PutDispEnv( &renderer->dispEnv );
     PutDrawEnv( &renderer->drawEnv );
 
+    //1/60 or 1/50 in 20.12 fixed point representation.
     syncReciprocal = GetVideoMode() == MODE_NTSC ? 68 : 82;
 
     ClearOTagR( (u_long*) &renderer->orderingTable, OT_SIZE );

@@ -47,6 +47,10 @@ int Scene_Update( Scene* scene ) {
     }
 }
 
+int Scene_Destroy( Scene* scene ) {
+    if( scene->effectProperties != NULL ) free( scene->effectProperties );
+}
+
 int Renderer_DrawScene( Renderer* renderer, Scene* scene ) {
     switch( scene->sceneInfo.effect ) {
         case SnowFall:

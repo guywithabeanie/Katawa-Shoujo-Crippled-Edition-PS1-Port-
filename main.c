@@ -38,5 +38,6 @@ int main() {
         Renderer_Refresh( &renderer );
     }
 
+    Scene_Destroy( &scene );
     return 0;
 }
