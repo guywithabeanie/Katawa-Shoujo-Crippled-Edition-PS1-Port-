@@ -6,6 +6,7 @@
 #include <libetc.h>
 #include <libgpu.h>
 
+#include "error.h"
 #include "renderer.h"
 #include "file.h"
 
@@ -29,7 +30,7 @@ typedef struct Image {
     RECT crect;
 } Image;
 
-int Image_Load( Image* image, char* path, int imageVX, int imageVY, int clutVX, int clutVY );
+Status Image_Load( Image* image, char* path, int imageVX, int imageVY, int clutVX, int clutVY );
 
 int Renderer_DrawImage( Renderer* renderer, Image* image, int x, int y, Color tint, TransparencyMode transparencyMode );
 

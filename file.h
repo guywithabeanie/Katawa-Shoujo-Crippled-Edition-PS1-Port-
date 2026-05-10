@@ -4,6 +4,8 @@
 #include <stdlib.h>
 #include <libcd.h>
 
+#include "error.h"
+
 #define WHOLE_FILE 0
 #define CD_SECTOR_SIZE 2048
 
@@ -14,8 +16,8 @@
 
 typedef CdlFILE File;
 
-int File_Open( File* file, char* path );
+Status File_Open( File* file, char* path );
 
-int File_Read( File* file, void* buffer, size_t count );
+Status File_Read( File* file, void* buffer, size_t count );
 
 #endif

@@ -12,6 +12,8 @@ int SnowSystem_Init( SnowSystem* snowSystem, Image* snowSprite ) {
         snowFlake->velocityX = ( rand() % 10 ) + 10;
         snowFlake->velocityY = ( rand() % 30 ) + 20;
     }
+
+    return 0;
 }
 
 int SnowSystem_Update( SnowSystem* snowSystem ) {
@@ -33,7 +35,7 @@ int Renderer_DrawSnow( Renderer* renderer, SnowSystem* snowSystem ) {
         Renderer_DrawImage ( 
             renderer, snowSystem->snowSprite, 
             Ftoi( snowFlake->x ), Ftoi( snowFlake->y ), 
-            DEFAULT, Additive 
+            DEFAULT, QuarterAdditive 
         );
     }
 }

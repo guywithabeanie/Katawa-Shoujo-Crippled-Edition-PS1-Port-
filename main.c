@@ -1,5 +1,7 @@
 #include "renderer.h"
 #include "scene.h"
+#include "font.h"
+#include "fontData.h"
 
 #include <libgte.h>
 #include <libetc.h>
@@ -19,15 +21,18 @@ int main() {
         .effect = SnowFall
     };
 
-    Scene scene;
+    Font font;
+    Font_Load( &font, "\\GFX\\FONT\\PLAYTIME.TIM;1", &playtimeFontData );
 
-    Scene_Init( &scene, &sceneInfo, NULL );
+    Scene scene;
+    int status = Scene_Init( &scene, &sceneInfo, NULL );
 
     while( 1 ) {
         FntPrint("Rin's Arms\n");
 
         Scene_Update( &scene );
 
+        Renderer_DrawText( &renderer, &font, "A light breeze causes the naked branches overhead to rattle like\nwooden windchimes.", 5, 350, DEFAULT );
         Renderer_DrawScene( &renderer, &scene );
 
         Renderer_Refresh( &renderer );

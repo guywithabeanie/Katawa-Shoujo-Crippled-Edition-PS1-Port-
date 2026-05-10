@@ -3,25 +3,25 @@
 static int vramStack = 320;
 static int clutStack = 480;
 
-int Image_Load( Image* image, char* path, int imageVX, int imageVY, int clutVX, int clutVY ) {
+Status Image_Load( Image* image, char* path, int imageVX, int imageVY, int clutVX, int clutVY ) {
     //Open the TIM file.
     File fp;
     int status = File_Open( &fp, path );
     if( status == NULL ) {
-        return -1;
+        return FileLoadError;
     }
     
     //Allocate space for the TIM file (must allocate by sector).
     int sectorCount = SectorToByte( ByteToSector ( fp.size ) );
     char* buffer = malloc( sectorCount );
     if( buffer == NULL ) {
-        return -1;
+        return MallocError;
     }
     
     //Read the file.
-    int readStatus = File_Read( &fp, buffer, WHOLE_FILE );
-    if( readStatus == 0 ) {
-        return -1;
+    Status readStatus = File_Read( &fp, buffer, WHOLE_FILE );
+    if( readStatus != Okay ) {
+        return FileReadError;
     }
 
     //Get the information out of the TIM file.
@@ -64,7 +64,7 @@ int Image_Load( Image* image, char* path, int imageVX, int imageVY, int clutVX, 
     //clean
     free( buffer );
 
-    return 0;
+    return Okay;
 }
 
 int Renderer_DrawImage( Renderer* renderer, Image* image, int x, int y, Color tint, TransparencyMode transparencyMode ) {

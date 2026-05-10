@@ -23,7 +23,7 @@ typedef struct Scene {
     Image effectTexture;
 } Scene;
 
-int Scene_Init( Scene* scene, SceneInfo* sceneInfo, ActorInfo* actorInfo );
+Status Scene_Init( Scene* scene, SceneInfo* sceneInfo, ActorInfo* actorInfo );
 
 int Scene_AddActor( Scene* scene, ActorInfo* actorInfo );
 

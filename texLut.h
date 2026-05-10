@@ -10,7 +10,8 @@ typedef enum Background {
 } Background;
 
 typedef enum Effect {
-    SnowFall = 0
+    NoEffect = 0,
+    SnowFall
 } Effect;
 
 static char* RinPoses[] = {

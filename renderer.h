@@ -18,8 +18,8 @@
 
 #define DEFAULT (Color){ 128, 128, 128 }
 
-#define OT_SIZE 128
-#define TEXTABLE_SIZE 128
+#define OT_SIZE 256
+#define TEXTABLE_SIZE 256
 
 #define SyncToRefresh(n) ( Fixed_MultIntF(n, syncReciprocal) )
 

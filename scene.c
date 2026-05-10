@@ -1,15 +1,24 @@
 #include "scene.h"
 
-int Scene_Init( Scene* scene, SceneInfo* sceneInfo, ActorInfo* actorInfo ) {
+Status Scene_Init( Scene* scene, SceneInfo* sceneInfo, ActorInfo* actorInfo ) {
     //Add stuff to add / remove actors and shi without manually doing shi.
     scene->sceneInfo = *sceneInfo;
 
-    Image_Load( &scene->background, Backgrounds[ sceneInfo->background ], AUTO, AUTO, AUTO, AUTO );
+    Status loadStatus = Image_Load ( 
+        &scene->background, Backgrounds[ sceneInfo->background ], AUTO, AUTO, AUTO, AUTO 
+    );
+    if( loadStatus != Okay ) return loadStatus;
 
     switch( sceneInfo->effect ) {
         case SnowFall:
             scene->effectProperties = malloc( sizeof( SnowSystem ) );
-            Image_Load( &scene->effectTexture, Effects[ sceneInfo->effect ], FX_X, FX_Y, FX_CLUTX, FX_CLUTY );
+            if( scene->effectProperties == NULL ) return MallocError;
+
+            Status loadStatus = Image_Load ( 
+                &scene->effectTexture, Effects[ sceneInfo->effect - 1 ], FX_X, FX_Y, FX_CLUTX, FX_CLUTY 
+            );
+            if( loadStatus != Okay ) return loadStatus;
+
             SnowSystem_Init( scene->effectProperties, &scene->effectTexture );
             break;
         

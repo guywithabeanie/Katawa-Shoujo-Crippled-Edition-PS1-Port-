@@ -11,7 +11,7 @@
 #define FX_X 960
 #define FX_Y 256
 #define FX_CLUTX 0
-#define FX_CLUTY 511
+#define FX_CLUTY 510
 
 #define SNOW_COUNT 30
 
