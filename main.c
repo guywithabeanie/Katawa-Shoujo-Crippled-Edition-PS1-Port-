@@ -32,7 +32,7 @@ int main() {
 
         Scene_Update( &scene );
 
-        Renderer_DrawText( &renderer, &font, "A light breeze causes the naked branches overhead to rattle like\nwooden windchimes.", 5, 350, DEFAULT );
+        Renderer_DrawText( &renderer, &font, "A light breeze causes the naked branches overhead to rattle like\nwooden windchimes.", 5, 350, DEFAULT, TYPEWRITER );
         Renderer_DrawScene( &renderer, &scene );
 
         Renderer_Refresh( &renderer );

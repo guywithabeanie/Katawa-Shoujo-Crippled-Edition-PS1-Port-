@@ -10,7 +10,10 @@ Status Font_Load( Font* font, char* fontTexturePath, FontData* fontData ) {
     return loadStatus;
 }
 
-int Renderer_DrawText( Renderer* renderer, Font* font, char* text, int x, int y, Color tint ) {
+//Add typewriter esque writing.
+int Renderer_DrawText( Renderer* renderer, Font* font, char* text, int x, int y, Color tint, int displayType ) {
+    static int currentStringLength = 1;
+
     int imageDepth = font->fontImage.tim.mode & 0x03;
 
     //Rendering works with DWords (16 bits), not with pixels.
@@ -37,7 +40,12 @@ int Renderer_DrawText( Renderer* renderer, Font* font, char* text, int x, int y,
 
     setDrawTPage( tPage, 0, 1, getTPage( imageDepth, Additive, tPageX, tPageY ) );
 
-    for( int i = 0; i < stringLength; i++ ) {
+    if( displayType == TYPEWRITER ) {
+        if( currentStringLength < stringLength )    currentStringLength++;
+    }
+    else currentStringLength = stringLength;
+
+    for( int i = 0; i < currentStringLength; i++ ) {
         char currentCharacter = text[i];
 
         switch( currentCharacter ) {
@@ -73,12 +81,6 @@ int Renderer_DrawText( Renderer* renderer, Font* font, char* text, int x, int y,
         setUV0( sprite, currentCharactersData->u + imageOffsetX, currentCharactersData->v + imageOffsetY );
         setWH( sprite, currentCharactersData->w, font->fontData->charHeight );
         setRGB0( sprite, tint.red, tint.green, tint.blue );
-
-        //Fix not owrking font!
-        //while(1) {
-            //FntPrint("%d %d %d %d\n", currentCharactersData->u, currentCharactersData->v, currentCharactersData->w, currentCharactersData->h );
-            //FntFlush(-1);
-        //}
 
         if( IsIndexed( &font->fontImage ) ) setClut( sprite, font->fontImage.crect.x, font->fontImage.crect.y );
 

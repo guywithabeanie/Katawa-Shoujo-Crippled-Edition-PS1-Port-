@@ -60,6 +60,9 @@
 #define FONTCLUT_X 0
 #define FONTCLUT_Y 511 
 
+#define NORMAL 0
+#define TYPEWRITER 1
+
 #define NOT_PRESENT -1
 
 typedef struct CharData {
@@ -83,6 +86,7 @@ typedef struct Font {
 
 Status Font_Load( Font* font, char* fontTexturePath, FontData* fontData );
 
-int Renderer_DrawText( Renderer* renderer, Font* font, char* text, int x, int y, Color tint );
+//Text speed is in hertz. (60Hz = 1 second in NTSC, 50Hz = 1 in PAL)
+int Renderer_DrawText( Renderer* renderer, Font* font, char* text, int x, int y, Color tint, int textSpeed );
 
 #endif
