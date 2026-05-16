@@ -9,6 +9,9 @@ Status Scene_Init( Scene* scene, SceneInfo* sceneInfo, ActorInfo* actorInfo ) {
     );
     if( loadStatus != Okay ) return loadStatus;
 
+    loadStatus = Font_Load( &scene->font, PLAYTIME_PATH, &playtimeFontData );
+    if( loadStatus != Okay ) return loadStatus;
+
     switch( sceneInfo->effect ) {
         case SnowFall:
             scene->effectProperties = malloc( sizeof( SnowSystem ) );
@@ -52,6 +55,8 @@ int Scene_Destroy( Scene* scene ) {
 }
 
 int Renderer_DrawScene( Renderer* renderer, Scene* scene ) {
+    Renderer_DrawText( renderer, &scene->font, scene->sceneInfo.text, 5, 350, DEFAULT, TYPEWRITER );
+
     switch( scene->sceneInfo.effect ) {
         case SnowFall:
             Renderer_DrawSnow( renderer, scene->effectProperties );

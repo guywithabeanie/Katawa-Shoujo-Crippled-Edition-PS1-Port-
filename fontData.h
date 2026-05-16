@@ -3,6 +3,8 @@
 
 #include "font.h"
 
+#define PLAYTIME_PATH "\\GFX\\FONT\\PLAYTIME.TIM;1" 
+
 static CharData playtimeCharData[] = {
 	{  0, 0, 5 },
 	{  6, 0, 4 },
@@ -72,7 +74,7 @@ static CharData playtimeCharData[] = {
 	{ 154, 39, 3 }
 };
 
-FontData playtimeFontData = {
+static FontData playtimeFontData = {
     .charCount = sizeof( playtimeCharData ) / sizeof( CharData ),
 	.charHeight = 19,
 

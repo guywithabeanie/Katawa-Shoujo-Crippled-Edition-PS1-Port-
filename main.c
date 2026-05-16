@@ -18,11 +18,9 @@ int main() {
     SceneInfo sceneInfo = {
         .actorCount = 0,
         .background = SnowyWoods,
-        .effect = SnowFall
+        .effect = SnowFall,
+        .text = "Hello\n"
     };
-
-    Font font;
-    Font_Load( &font, "\\GFX\\FONT\\PLAYTIME.TIM;1", &playtimeFontData );
 
     Scene scene;
     int status = Scene_Init( &scene, &sceneInfo, NULL );
@@ -32,7 +30,6 @@ int main() {
 
         Scene_Update( &scene );
 
-        Renderer_DrawText( &renderer, &font, "A light breeze causes the naked branches overhead to rattle like\nwooden windchimes.", 5, 350, DEFAULT, TYPEWRITER );
         Renderer_DrawScene( &renderer, &scene );
 
         Renderer_Refresh( &renderer );

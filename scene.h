@@ -5,12 +5,16 @@
 #include "texLut.h"
 #include "actor.h"
 #include "renderer.h"
+#include "font.h"
+#include "fontData.h"
 
 #define MAX_ACTORS 4
 
 typedef struct SceneInfo {
-    Background background;
+    char* text;
     int actorCount;
+
+    Background background;
     Effect effect;
 } SceneInfo;
 
@@ -21,6 +25,7 @@ typedef struct Scene {
 
     Image background;
     Image effectTexture;
+    Font font;
 } Scene;
 
 Status Scene_Init( Scene* scene, SceneInfo* sceneInfo, ActorInfo* actorInfo );
