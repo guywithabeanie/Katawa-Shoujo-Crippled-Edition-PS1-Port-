@@ -13,7 +13,7 @@
 #define FX_CLUTX 0
 #define FX_CLUTY 510
 
-#define SNOW_COUNT 30
+#define SNOW_COUNT 20
 
 typedef struct SnowFlake {
     fixed x, y;
