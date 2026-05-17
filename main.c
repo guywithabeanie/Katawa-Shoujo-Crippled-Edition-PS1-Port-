@@ -19,7 +19,8 @@ int main() {
         .actorCount = 0,
         .background = SnowyWoods,
         .effect = SnowFall,
-        .text = "Hello\n"
+        .text = "eiorjgoierjgoiejrgoijeiorgjoierjgoiejrgoiejrgo\n",
+        .barType = CharBar
     };
 
     Scene scene;

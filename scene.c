@@ -5,12 +5,24 @@ Status Scene_Init( Scene* scene, SceneInfo* sceneInfo, ActorInfo* actorInfo ) {
     scene->sceneInfo = *sceneInfo;
 
     Status loadStatus = Image_Load ( 
-        &scene->background, Backgrounds[ sceneInfo->background ], AUTO, AUTO, AUTO, AUTO 
+        &scene->backgroundTexture, Backgrounds[ sceneInfo->background ], AUTO, AUTO, AUTO, AUTO 
     );
     if( loadStatus != Okay ) return loadStatus;
 
     loadStatus = Font_Load( &scene->font, PLAYTIME_PATH, &playtimeFontData );
     if( loadStatus != Okay ) return loadStatus;
+
+    switch( sceneInfo->barType ) {
+        case NormalBar:
+            loadStatus = Image_Load( &scene->barTexture, NORMALBAR_PATH, AUTO, AUTO, AUTO, AUTO );
+            break;
+        
+        case CharBar:
+            loadStatus = Image_Load( &scene->barTexture, CHARBAR_PATH, AUTO, AUTO, AUTO, AUTO );
+
+        default:
+            break;
+    }
 
     switch( sceneInfo->effect ) {
         case SnowFall:
@@ -55,7 +67,22 @@ int Scene_Destroy( Scene* scene ) {
 }
 
 int Renderer_DrawScene( Renderer* renderer, Scene* scene ) {
-    Renderer_DrawText( renderer, &scene->font, scene->sceneInfo.text, 5, 350, DEFAULT, TYPEWRITER );
+    int barX = 0;
+    int barY = SCREEN_HEIGHT - scene->barTexture.prect.h - 10;
+
+    int textX, textY;
+
+    if( scene->sceneInfo.barType != CharBar ) {
+        textX = barX + 5;
+        textY = barY + 9;
+    }
+    else {
+        textX = barX + 9;
+        textY = barY + 37;
+    }
+
+    Renderer_DrawText( renderer, &scene->font, scene->sceneInfo.text, textX, textY, DEFAULT, TYPEWRITER );
+    Renderer_DrawImage( renderer, &scene->barTexture, barX, barY, DEFAULT, Average );
 
     switch( scene->sceneInfo.effect ) {
         case SnowFall:
@@ -69,5 +96,5 @@ int Renderer_DrawScene( Renderer* renderer, Scene* scene ) {
     for( int i = 0; i < scene->sceneInfo.actorCount; i++ ) {
         Renderer_DrawActor( renderer, &scene->actors[i] );
     }
-    Renderer_DrawImage( renderer, &scene->background, 0, 0, DEFAULT, Opaque );
+    Renderer_DrawImage( renderer, &scene->backgroundTexture, 0, 0, DEFAULT, Opaque );
 }

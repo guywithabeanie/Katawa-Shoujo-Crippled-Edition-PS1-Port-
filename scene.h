@@ -10,11 +10,21 @@
 
 #define MAX_ACTORS 4
 
+#define NORMALBAR_PATH "\\GFX\\UI\\NORMBAR.TIM;1"
+#define CHARBAR_PATH "\\GFX\\UI\\CHARBAR.TIM;1"
+
+typedef enum BarType {
+    NormalBar = 0,
+    CharBar,
+    NVLBar
+} BarType;
+
 typedef struct SceneInfo {
     char* text;
     int actorCount;
 
     Background background;
+    BarType barType;
     Effect effect;
 } SceneInfo;
 
@@ -23,8 +33,9 @@ typedef struct Scene {
     SceneInfo sceneInfo;
     Actor actors[MAX_ACTORS];
 
-    Image background;
+    Image backgroundTexture;
     Image effectTexture;
+    Image barTexture;
     Font font;
 } Scene;
 
