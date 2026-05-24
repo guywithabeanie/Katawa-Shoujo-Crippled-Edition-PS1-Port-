@@ -7,7 +7,7 @@
 #include "image.h"
 #include "fixed.h"
 
-//Effects will always get drawn in this VRAM position.
+// Effects will always get drawn in this VRAM position.
 #define FX_X 960
 #define FX_Y 256
 #define FX_CLUTX 0
@@ -16,17 +16,17 @@
 #define SNOW_COUNT 20
 
 typedef struct SnowFlake {
-    fixed x, y;
-    int velocityX, velocityY;
+  fixed x, y;
+  int velocityX, velocityY;
 } SnowFlake;
 
 typedef struct SnowSystem {
-    Image* snowSprite;
-    SnowFlake snow[SNOW_COUNT];
+  Image *snowSprite;
+  SnowFlake snow[SNOW_COUNT];
 } SnowSystem;
 
-int SnowSystem_Init( SnowSystem* snowSystem, Image* snowSprite );
-int SnowSystem_Update( SnowSystem* snowSystem );
-int Renderer_DrawSnow( Renderer* renderer, SnowSystem* snowSystem );
+int SnowSystem_Init(SnowSystem *snowSystem, Image *snowSprite);
+int SnowSystem_Update(SnowSystem *snowSystem);
+int Renderer_DrawSnow(Renderer *renderer, SnowSystem *snowSystem);
 
 #endif

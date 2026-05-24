@@ -53,40 +53,41 @@
 // ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
 #define ASCII_COUNT 96
 
-//Right below the debug font.
+// Right below the debug font.
 #define FONTVRAM_X 960
 #define FONTVRAM_Y 32
-//Right below the reserved effects CLUT.
+// Right below the reserved effects CLUT.
 #define FONTCLUT_X 0
-#define FONTCLUT_Y 511 
+#define FONTCLUT_Y 511
 
 #define NORMAL 0
 #define TYPEWRITER 1
 
-#define NOT_PRESENT -1
+#define NOT_PRESENT 255
 
 typedef struct CharData {
-    int u, v;
-    int w;
+  int u, v;
+  int w;
 } CharData;
 
-typedef struct FontData{
-    int charCount;
-    //Character height never changes.
-    int charHeight;
+typedef struct FontData {
+  int charCount;
+  // Character height never changes.
+  int charHeight;
 
-    CharData* charData;
-    u_char indices[ASCII_COUNT];
+  CharData *charData;
+  u_char indices[ASCII_COUNT];
 } FontData;
 
 typedef struct Font {
-    FontData* fontData;
-    Image fontImage;
+  FontData *fontData;
+  Image fontImage;
 } Font;
 
-Status Font_Load( Font* font, char* fontTexturePath, FontData* fontData );
+Status Font_Load(Font *font, char *fontTexturePath, FontData *fontData);
 
-//Text speed is in hertz. (60Hz = 1 second in NTSC, 50Hz = 1 in PAL)
-int Renderer_DrawText( Renderer* renderer, Font* font, char* text, int x, int y, Color tint, int textSpeed );
+// Text speed is in hertz. (60Hz = 1 second in NTSC, 50Hz = 1 in PAL)
+int Renderer_DrawText(Renderer *renderer, Font *font, char *text, int x, int y,
+                      Color tint, int textSpeed);
 
 #endif

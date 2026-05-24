@@ -10,28 +10,38 @@
 #include "renderer.h"
 #include "file.h"
 
-#define BITMODE4  0
-#define BITMODE8  1
+#define BITMODE4 0
+#define BITMODE8 1
 #define BITMODE16 2
 #define BITMODE24 3
 
 #define AUTO -1
 
-#define IsIndexed( n ) ( (n)->tim.mode & 0x08 )
-#define Is4Bit( n ) ( (n)->tim.mode == 0x08 )
-#define Is8Bit( n ) ( (n)->tim.mode == 0x09 )
+#define IsIndexed(n) ((n)->mode & 0x08)
+#define Is4Bit(n) ((n)->mode == 0x08)
+#define Is8Bit(n) ((n)->mode == 0x09)
 
 typedef struct Image {
-    int alpha;
-    TIM_IMAGE tim;
-    //Save the prect and crect since TIM_IMAGE only keeps pointers of them, which can screw up 
-    //some things when loading multiple images.
-    RECT prect;
-    RECT crect;
+  u_long mode;
+  RECT prect;
+  RECT crect;
 } Image;
 
-Status Image_Load( Image* image, char* path, int imageVX, int imageVY, int clutVX, int clutVY );
+typedef struct VRAM_Position {
+  short x, y;
+} VRAM_Position;
 
-int Renderer_DrawImage( Renderer* renderer, Image* image, int x, int y, Color tint, TransparencyMode transparencyMode );
+typedef struct VRAM_Allocator {
+  short start, end;
+} VRAM_Allocator;
+
+typedef enum Direction { None = 0, Left, Right } Direction;
+
+VRAM_Position VRAM_Alloc(TIM_IMAGE *image, Direction direction);
+Status Image_Load(Image *image, char *path, int imageVX, int imageVY,
+                  Direction direction);
+
+int Renderer_DrawImage(Renderer *renderer, Image *image, int x, int y,
+                       Color tint, TransparencyMode transparencyMode);
 
 #endif

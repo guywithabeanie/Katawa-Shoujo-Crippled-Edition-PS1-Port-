@@ -45,13 +45,13 @@ CFILES=(*.c)
 OBJFILES=()
 
 for i in "${CFILES[@]}"; do
-    $CC $CFLAGS -c "$i" -o "bin/${i%.c}.obj"
-    OBJFILES+=("bin/${i%.c}.obj")
+  $CC $CFLAGS -c "$i" -o "bin/${i%.c}.obj"
+  OBJFILES+=("bin/${i%.c}.obj")
 done
 
 # --- Link ---
 $CC bin/crt0.obj "${OBJFILES[@]}" -o "bin/$OUTPUT.elf" \
-    $LDFLAGS $LIBS
+  $LDFLAGS $LIBS
 
 # --- Convert to PS-X EXE ---
 $OBJCOPY -O binary "bin/$OUTPUT.elf" CDROM/SCES_313.37

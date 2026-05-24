@@ -10,5 +10,9 @@
 *.xml
 *.37
 
-#bless anyone from using my garbage vscode scripts
-.vscode/
+*.swp
+*.lua
+run.sh
+.clangd
+.clang-format
+.gitignore
