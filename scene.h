@@ -12,6 +12,12 @@
 
 #define NORMALBAR_PATH "\\GFX\\UI\\NORMBAR.TIM;1"
 #define CHARBAR_PATH "\\GFX\\UI\\CHARBAR.TIM;1"
+#define CONTINUE_PATH "\\GFX\\UI\\CTC.TIM;1"
+
+#define CONTINUE_X 307
+#define CONTINUE_Y 445
+#define CONTINUE_VRAMX 320
+#define CONTINUE_VRAMY 480
 
 typedef enum BarType { NormalBar = 0, CharBar, NVLBar } BarType;
 
@@ -25,6 +31,8 @@ typedef struct SceneInfo {
 } SceneInfo;
 
 typedef struct Scene {
+  int stringCounter;
+  int continueAlpha;
   void *effectProperties;
   SceneInfo sceneInfo;
   Actor actors[MAX_ACTORS];
@@ -32,6 +40,7 @@ typedef struct Scene {
   Image backgroundTexture;
   Image effectTexture;
   Image barTexture;
+  Image continueTexture;
   Font font;
 } Scene;
 

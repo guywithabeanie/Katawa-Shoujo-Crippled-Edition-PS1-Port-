@@ -11,9 +11,7 @@ Status Font_Load(Font *font, char *fontTexturePath, FontData *fontData) {
 
 // Add typewriter esque writing.
 int Renderer_DrawText(Renderer *renderer, Font *font, char *text, int x, int y,
-                      Color tint, int displayType) {
-  static int currentStringLength = 1;
-
+                      Color tint, int displayType, int *stringCounter) {
   int imageDepth = font->fontImage.mode & 0x03;
 
   // Rendering works with DWords (16 bits), not with pixels.
@@ -48,12 +46,12 @@ int Renderer_DrawText(Renderer *renderer, Font *font, char *text, int x, int y,
   setDrawTPage(tPage, 0, 1, getTPage(imageDepth, Additive, tPageX, tPageY));
 
   if (displayType == TYPEWRITER) {
-    if (currentStringLength < stringLength)
-      currentStringLength++;
+    if (*stringCounter < stringLength)
+      (*stringCounter)++;
   } else
-    currentStringLength = stringLength;
+    *stringCounter = stringLength;
 
-  for (int i = 0; i < currentStringLength; i++) {
+  for (int i = 0; i < *stringCounter; i++) {
     char currentCharacter = text[i];
 
     switch (currentCharacter) {
@@ -102,5 +100,5 @@ int Renderer_DrawText(Renderer *renderer, Font *font, char *text, int x, int y,
   }
 
   addPrim(renderer->orderingTable, tPage);
-  return 0;
+  return stringLength == *stringCounter ? 1 : 0;
 }

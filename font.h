@@ -56,9 +56,6 @@
 // Right below the debug font.
 #define FONTVRAM_X 960
 #define FONTVRAM_Y 32
-// Right below the reserved effects CLUT.
-#define FONTCLUT_X 0
-#define FONTCLUT_Y 511
 
 #define NORMAL 0
 #define TYPEWRITER 1
@@ -88,6 +85,6 @@ Status Font_Load(Font *font, char *fontTexturePath, FontData *fontData);
 
 // Text speed is in hertz. (60Hz = 1 second in NTSC, 50Hz = 1 in PAL)
 int Renderer_DrawText(Renderer *renderer, Font *font, char *text, int x, int y,
-                      Color tint, int textSpeed);
+                      Color tint, int textSpeed, int *stringCounter);
 
 #endif

@@ -1,9 +1,13 @@
 #include "scene.h"
+#include "font.h"
 #include "image.h"
+#include "renderer.h"
 
 Status Scene_Init(Scene *scene, SceneInfo *sceneInfo, ActorInfo *actorInfo) {
   // Add stuff to add / remove actors and shi without manually doing shi.
   scene->sceneInfo = *sceneInfo;
+  scene->stringCounter = 0;
+  scene->continueAlpha = 0;
 
   Status loadStatus =
       Image_Load(&scene->backgroundTexture, Backgrounds[sceneInfo->background],
@@ -24,6 +28,9 @@ Status Scene_Init(Scene *scene, SceneInfo *sceneInfo, ActorInfo *actorInfo) {
   case CharBar:
     loadStatus =
         Image_Load(&scene->barTexture, CHARBAR_PATH, AUTO, AUTO, Right);
+
+    Image_Load(&scene->continueTexture, CONTINUE_PATH, CONTINUE_VRAMX,
+               CONTINUE_VRAMY, None);
 
   default:
     break;
@@ -84,6 +91,7 @@ int Scene_Destroy(Scene *scene) {
 }
 
 int Renderer_DrawScene(Renderer *renderer, Scene *scene) {
+  static int continueAlphaIncrement = 2;
   int barX = 0;
   int barY = SCREEN_HEIGHT - scene->barTexture.prect.h - 10;
 
@@ -94,11 +102,35 @@ int Renderer_DrawScene(Renderer *renderer, Scene *scene) {
     textY = barY + 9;
   } else {
     textX = barX + 9;
-    textY = barY + 37;
+    textY = barY + 42;
   }
 
-  Renderer_DrawText(renderer, &scene->font, scene->sceneInfo.text, textX, textY,
-                    DEFAULT, TYPEWRITER);
+  int textFinished =
+      Renderer_DrawText(renderer, &scene->font, scene->sceneInfo.text, textX,
+                        textY, DEFAULT, TYPEWRITER, &scene->stringCounter);
+
+  if (textFinished) {
+    if (scene->continueAlpha > 128)
+      scene->continueAlpha = 128;
+    if (scene->continueAlpha < 0)
+      scene->continueAlpha = 0;
+
+    Color alpha = (Color){scene->continueAlpha, scene->continueAlpha,
+                          scene->continueAlpha};
+
+    Renderer_DrawImage(renderer, &scene->continueTexture, CONTINUE_X,
+                       CONTINUE_Y, alpha, Additive);
+
+    scene->continueAlpha += continueAlphaIncrement;
+    if (scene->continueAlpha > 128 || scene->continueAlpha < 0)
+      continueAlphaIncrement *= -1;
+  }
+
+  else {
+    scene->continueAlpha = 0;
+    continueAlphaIncrement = 2;
+  }
+
   Renderer_DrawImage(renderer, &scene->barTexture, barX, barY, DEFAULT,
                      Average);
 
