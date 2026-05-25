@@ -1,5 +1,7 @@
 #include "renderer.h"
+#include "libetc.h"
 
+int tickPerSecond;
 fixed syncReciprocal;
 
 Texture *TextureTable_Fetch(Renderer *renderer) {
@@ -35,6 +37,7 @@ void Renderer_Init(Renderer *renderer, Color backgroundColor) {
   PutDispEnv(&renderer->dispEnv);
   PutDrawEnv(&renderer->drawEnv);
 
+  tickPerSecond = GetVideoMode() == MODE_NTSC ? 60 : 50;
   // 1/60 or 1/50 in 20.12 fixed point representation.
   syncReciprocal = GetVideoMode() == MODE_NTSC ? 68 : 82;
 

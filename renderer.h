@@ -23,6 +23,8 @@
 
 #define SyncToRefresh(n) (Fixed_MultIntF(n, syncReciprocal))
 
+// Refresh rate (60Hz for NTSC, 50Hz for PAL).
+extern int tickPerSecond;
 // The reciprocal of the refresh rate (60Hz for NTSC, 50Hz for PAL).
 extern fixed syncReciprocal;
 

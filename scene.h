@@ -7,6 +7,7 @@
 #include "renderer.h"
 #include "font.h"
 #include "fontData.h"
+#include "timer.h"
 
 #define MAX_ACTORS 4
 

@@ -2,6 +2,7 @@
 #include "font.h"
 #include "image.h"
 #include "renderer.h"
+#include "timer.h"
 
 Status Scene_Init(Scene *scene, SceneInfo *sceneInfo, ActorInfo *actorInfo) {
   // Add stuff to add / remove actors and shi without manually doing shi.
@@ -91,7 +92,6 @@ int Scene_Destroy(Scene *scene) {
 }
 
 int Renderer_DrawScene(Renderer *renderer, Scene *scene) {
-  static int continueAlphaIncrement = 2;
   int barX = 0;
   int barY = SCREEN_HEIGHT - scene->barTexture.prect.h - 10;
 
@@ -109,10 +109,15 @@ int Renderer_DrawScene(Renderer *renderer, Scene *scene) {
       Renderer_DrawText(renderer, &scene->font, scene->sceneInfo.text, textX,
                         textY, DEFAULT, TYPEWRITER, &scene->stringCounter);
 
+  // Draw the continue icon if the text is done writing.
+  static int continueAlphaIncrement = 2;
+  static Timer continueTimer;
+
   if (textFinished) {
-    if (scene->continueAlpha > 128)
+    // Clamp the alpha.
+    if (scene->continueAlpha >= 128)
       scene->continueAlpha = 128;
-    if (scene->continueAlpha < 0)
+    else if (scene->continueAlpha <= 0)
       scene->continueAlpha = 0;
 
     Color alpha = (Color){scene->continueAlpha, scene->continueAlpha,
@@ -122,10 +127,23 @@ int Renderer_DrawScene(Renderer *renderer, Scene *scene) {
                        CONTINUE_Y, alpha, Additive);
 
     scene->continueAlpha += continueAlphaIncrement;
-    if (scene->continueAlpha > 128 || scene->continueAlpha < 0)
-      continueAlphaIncrement *= -1;
+
+    if (scene->continueAlpha <= 0)
+      continueAlphaIncrement = 2;
+
+    // Pause the blinking for half a second.
+    else if (scene->continueAlpha >= 128 && !continueTimer.counting) {
+      continueAlphaIncrement = 0;
+      Timer_Start(&continueTimer, tickPerSecond >> 2);
+    }
+
+    TimerStatus timerStatus = Timer_Update(&continueTimer);
+    if (timerStatus == Finished) {
+      continueAlphaIncrement = -2;
+    }
   }
 
+  // Reset.
   else {
     scene->continueAlpha = 0;
     continueAlphaIncrement = 2;
@@ -134,6 +152,7 @@ int Renderer_DrawScene(Renderer *renderer, Scene *scene) {
   Renderer_DrawImage(renderer, &scene->barTexture, barX, barY, DEFAULT,
                      Average);
 
+  // Draw effects.
   switch (scene->sceneInfo.effect) {
   case SnowFall:
     Renderer_DrawSnow(renderer, scene->effectProperties);
@@ -143,6 +162,7 @@ int Renderer_DrawScene(Renderer *renderer, Scene *scene) {
     break;
   };
 
+  // Draw actors and background.
   for (int i = 0; i < scene->sceneInfo.actorCount; i++) {
     Renderer_DrawActor(renderer, &scene->actors[i]);
   }
