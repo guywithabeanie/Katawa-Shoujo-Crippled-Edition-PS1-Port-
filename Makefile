@@ -38,14 +38,10 @@ LIBS :=\
 -lsnd -lspu -ltap -lcd\
 -Wl,--end-group
 
-.PHONY: all clean
+.PHONY: all clean link exe cdrom
 
 C_FILES := $(wildcard *.c)
-OBJ_FILES := $(addprefix bin/, $(notdir $(C_FILES:.c=.obj)))
 OBJS := $(patsubst %.c,bin/%.obj,$(wildcard *.c))
-$(info C_FILES = $(C_FILES))
-$(info OBJ_FILES = $(OBJ_FILES))
-$(info OBJS = $(OBJS))
 
 all: cdrom
 
@@ -55,7 +51,7 @@ bin/crt0.obj: nugget/common/crt0/crt0.s | bin
 $(OBJS): bin/%.obj: %.c
 	$(CC) $(CFLAGS) -c $< -o $@
 
-link: bin/crt0.obj $(OBJ_FILES) | bin
+link: bin/crt0.obj $(OBJS) | bin
 	$(CC) $^ -o bin/$(OUTPUT).elf $(LDFLAGS) $(LIBS)
 
 exe: link | bin
